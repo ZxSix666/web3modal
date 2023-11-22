@@ -170,7 +170,7 @@ export class W3mSwapView extends LitElement {
 
     return html`
       <div class="token-select-button-container">
-        <button class="token-select-button">
+        <button class="token-select-button" @click=${this.onSelectToken.bind(this)}>
           ${networkElement}
           <wui-text variant="paragraph-600" color="fg-100">${network}</wui-text>
         </button>
