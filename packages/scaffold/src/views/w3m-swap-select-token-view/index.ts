@@ -1,6 +1,7 @@
 import { customElement } from '@web3modal/ui'
 import { LitElement, html } from 'lit'
 import styles from './styles.js'
+import { EventsController, RouterController } from '@web3modal/core'
 
 const yourItems = [
   {
@@ -143,7 +144,18 @@ export class W3mSwapSelectTokenView extends LitElement {
   private templateSearchInput() {
     return html`
       <wui-flex gap="xs">
-        <wui-input-text size="sm" placeholder="Search token" icon="search"></wui-input-text>
+        <wui-input-text
+          class="network-search-input"
+          size="sm"
+          placeholder="Search token"
+          icon="search"
+        ></wui-input-text>
+        <button @click=${this.onSelectNetwork.bind(this)} class="select-network-button" gap="xs">
+          <wui-image
+            src="https://explorer-api.walletconnect.com/w3m/v1/getAssetImage/692ed6ba-e569-459a-556a-776476829e00?projectId=c1781fc385454899a2b1385a2b83df3b"
+          ></wui-image>
+          <wui-icon name="chevronBottom" color="fg-200" size="xs"></wui-icon>
+        </button>
       </wui-flex>
     `
   }
@@ -187,6 +199,11 @@ export class W3mSwapSelectTokenView extends LitElement {
         </wui-flex>
       </wui-flex>
     `
+  }
+
+  private onSelectNetwork() {
+    EventsController.sendEvent({ type: 'track', event: 'CLICK_SELECT_NETWORK_TO_SWAP' })
+    RouterController.push('SwapSelectNetwork')
   }
 }
 
